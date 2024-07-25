@@ -1,0 +1,18 @@
+.card{
+    background: lightgrey;
+    color: black;
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+}
+.card label{
+    text-align: right;
+}
+.card--layer{
+    display: flex;
+    gap: 16rem;
+    margin-top: 2rem;
+    align-items: center;
+}

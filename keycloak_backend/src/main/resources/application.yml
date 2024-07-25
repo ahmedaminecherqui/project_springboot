@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/gestion_timesheet?createDatabaseIfNotExist=true
+    username: root
+    password: # Leave this blank if no password is required
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/test
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+server:
+  port: 8081
+
+jwt:
+  auth:
+    converter:
+      resource-id: test-rest-api
+      principle-attribute: preferred_username
