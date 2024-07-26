@@ -5,15 +5,17 @@ import java.util.List;
 public class TimesheetDTO {
     private Long id;
     private boolean validated;
+    private Boolean accepted;
     private List<TimesheetRowDTO> rows;
 
     // Default constructor
     public TimesheetDTO() {}
 
     // Constructor with parameters
-    public TimesheetDTO(Long id, boolean validated, List<TimesheetRowDTO> rows) {
+    public TimesheetDTO(Long id, boolean validated, Boolean accepted, List<TimesheetRowDTO> rows) {
         this.id = id;
         this.validated = validated;
+        this.accepted = accepted;
         this.rows = rows;
     }
 
@@ -40,6 +42,14 @@ public class TimesheetDTO {
 
     public void setRows(List<TimesheetRowDTO> rows) {
         this.rows = rows;
+    }
+
+    public Boolean getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        this.accepted = accepted;
     }
 }
 

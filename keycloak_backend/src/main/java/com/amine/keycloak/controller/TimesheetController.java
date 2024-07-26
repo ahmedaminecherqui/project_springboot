@@ -4,12 +4,15 @@ import com.amine.keycloak.model.Timesheet;
 import com.amine.keycloak.model.TimesheetRow;
 import com.amine.keycloak.repository.TimesheetRepository;
 import com.amine.keycloak.repository.TimesheetRowRepository;
+import com.amine.keycloak.services.TimesheetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,9 @@ public class TimesheetController {
 
     @Autowired
     private TimesheetRowRepository timesheetRowRepository;
+
+    @Autowired
+    private TimesheetService timesheetService;
 
     @PostMapping
     public ResponseEntity<?> createTimesheet(@RequestBody TimesheetDTO timesheetDTO) {
@@ -50,6 +56,7 @@ public class TimesheetController {
             TimesheetDTO dto = new TimesheetDTO();
             dto.setId(timesheet.getId());
             dto.setValidated(timesheet.isValidated());
+            dto.setAccepted(timesheet.getAccepted());
             List<TimesheetRowDTO> rowsDTO = timesheetRowRepository.findByTimesheetId(timesheet.getId()).stream().map(row -> {
                 TimesheetRowDTO rowDTO = new TimesheetRowDTO();
                 rowDTO.setMatricule(row.getMatricule());
@@ -64,7 +71,7 @@ public class TimesheetController {
         }).collect(Collectors.toList());
         return ResponseEntity.ok(dtoList);
     }
-
+    @Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTimesheet(@PathVariable Long id) {
         if (timesheetRepository.existsById(id)) {
@@ -118,6 +125,38 @@ public class TimesheetController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getTimesheetCount() {
+        long count = timesheetService.countAllTimesheets();
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/validated/count")
+    public ResponseEntity<Long> getValidatedTimesheetCount() {
+        long count = timesheetService.countValidatedTimesheets();
+        return ResponseEntity.ok(count);
+    }
+
+    @PatchMapping("/{id}/accept")
+    public ResponseEntity<Timesheet> acceptTimesheet(@PathVariable Long id) {
+        Timesheet updatedTimesheet = timesheetService.acceptTimesheet(id);
+        return updatedTimesheet != null ? ResponseEntity.ok(updatedTimesheet) : ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping("/{id}/refuse")
+    public ResponseEntity<Timesheet> refuseTimesheet(@PathVariable Long id) {
+        Timesheet updatedTimesheet = timesheetService.refuseTimesheet(id);
+        return updatedTimesheet != null ? ResponseEntity.ok(updatedTimesheet) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/accepted/count")
+    public ResponseEntity<Map<String, Long>> getAcceptedTimesheetsCount() {
+        long count = timesheetService.countAcceptedTimesheets();
+        Map<String, Long> response = Collections.singletonMap("count", count);
+        return ResponseEntity.ok(response);
     }
 }
 

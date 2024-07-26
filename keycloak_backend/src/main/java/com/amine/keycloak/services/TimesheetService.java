@@ -1,4 +1,4 @@
-package com.amine.keycloak.service;
+package com.amine.keycloak.services;
 
 import com.amine.keycloak.model.Timesheet;
 import com.amine.keycloak.repository.TimesheetRepository;
@@ -27,6 +27,38 @@ public class TimesheetService {
 
     public void deleteTimesheet(Long id) {
         timesheetRepository.deleteById(id);
+    }
+
+    public long countAllTimesheets() {
+        return timesheetRepository.count();
+    }
+
+    public long countValidatedTimesheets() {
+        return timesheetRepository.countByValidated(true);
+    }
+
+    public Timesheet acceptTimesheet(Long id) {
+        Optional<Timesheet> optionalTimesheet = timesheetRepository.findById(id);
+        if (optionalTimesheet.isPresent()) {
+            Timesheet timesheet = optionalTimesheet.get();
+            timesheet.setAccepted(true);
+            return timesheetRepository.save(timesheet);
+        }
+        return null;
+    }
+
+    public Timesheet refuseTimesheet(Long id) {
+        Optional<Timesheet> optionalTimesheet = timesheetRepository.findById(id);
+        if (optionalTimesheet.isPresent()) {
+            Timesheet timesheet = optionalTimesheet.get();
+            timesheet.setAccepted(false);
+            return timesheetRepository.save(timesheet);
+        }
+        return null;
+    }
+
+    public long countAcceptedTimesheets() {
+        return timesheetRepository.countAcceptedTimesheets();
     }
 }
 

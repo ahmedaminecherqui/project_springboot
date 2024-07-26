@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {createBrowserRouter, RouterProvider, useNavigate, useParams} from 'react-router-dom';
-import useAuth from './hooks/useAuth'; // Import the useAuth hook
-import './App.css'
+import React, { useState } from 'react';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import  useAuth  from './hooks/useAuth';
+import './App.css';
 
 // Import your components
 import MainPageAdmin from './components/MainPages/MainPageAdmin.jsx';
@@ -17,7 +17,6 @@ import FullContentAideA from './components/Contents/FullContent/FullContentAide/
 import FullContentTimesheet from './components/Contents/FullContent/FullContentTimesheet.jsx';
 import FullContentReport from './components/Contents/FullContent/FullContentReport.jsx';
 import AddV from './components/Contents/ListeVContent/AddV.jsx';
-import { useState } from 'react';
 import AddC from './components/Contents/ListeCContent/AddC.jsx';
 import ModifyC from './components/Contents/ListeCContent/ModifyC.jsx';
 import ModifyV from './components/Contents/ListeVContent/ModifyV.jsx';
@@ -29,131 +28,133 @@ import WelcomeC from './components/Contents/FullContent/WelcomePage/WelcomeC.jsx
 import WelcomeV from './components/Contents/FullContent/WelcomePage/WelcomeV.jsx';
 import FullContentAideC from './components/Contents/FullContent/FullContentAide/FullContentAideC.jsx';
 import FullContentAideV from './components/Contents/FullContent/FullContentAide/FullContentAideV.jsx';
-import Hello from "./components/Hello.jsx";
+
 const App = () => {
     const [validators, setValidators] = useState([]);
+    const [isLogin, token, client] = useAuth();
 
-
-
+    if (!isLogin) {
+        return <div>Loading...</div>;
+    }
 
     const router = createBrowserRouter([
-        // Define your routes here
-
         {
             path: '/',
-            children:[
+            element: <Navigate to="/admin" replace />,
+        },
+        {
+            path: '/login',
+            element: <div>Redirecting to login...</div>,
+        },
+        {
+            path: '/admin',
+            element: <MainPageAdmin />,
+            children: [
+                {
+                    path: '/admin/dashboard',
+                    element: <FullContentDashboardA />,
+                },
                 {
                     path: '/admin',
-                    element: <MainPageAdmin />,
-                    children: [
-                        {
-                            path: '/admin/dashboard',
-                            element: <FullContentDashboardA />,
-                        },
-                        {
-                            path: '/admin',
-                            element: <WelcomeA />,
-                        },
-                        {
-                            path: '/admin/liste_validateur',
-                            element: <FullContentListeV validators={validators} />,
-                        },
-                        {
-                            path: '/admin/liste_validateur/ajouter_validateur',
-                            element: <AddV setValidators={setValidators} />,
-                        },
-                        {
-                            path: '/admin/liste_validateur/modifier_validateur/:id',
-                            element: <ModifyV setValidators={setValidators} />,
-                        },
-
-                        {
-                            path: '/admin/liste_consultant',
-                            element: <FullContentListeC />,
-                        },
-                        {
-                            path: '/admin/liste_consultant/ajouter_consultant',
-                            element: <AddC />,
-                        },
-                        {
-                            path: '/admin/liste_consultant/modifier_consultant/:id',
-                            element:  <ModifyC/>,
-                        },
-                        {
-                            path: '/admin/contact',
-                            element: <FullContentContact />,
-                        },
-                        {
-                            path: '/admin/aide',
-                            element: <FullContentAideA />,
-                        },
-                        {
-                            path: '/admin/logout',
-                            element: <FullContentLogoutA />
-                        },
-                    ],
+                    element: <WelcomeA />,
+                },
+                {
+                    path: '/admin/liste_validateur',
+                    element: <FullContentListeV validators={validators} />,
+                },
+                {
+                    path: '/admin/liste_validateur/ajouter_validateur',
+                    element: <AddV setValidators={setValidators} />,
+                },
+                {
+                    path: '/admin/liste_validateur/modifier_validateur/:id',
+                    element: <ModifyV setValidators={setValidators} />,
+                },
+                {
+                    path: '/admin/liste_consultant',
+                    element: <FullContentListeC />,
+                },
+                {
+                    path: '/admin/liste_consultant/ajouter_consultant',
+                    element: <AddC />,
+                },
+                {
+                    path: '/admin/liste_consultant/modifier_consultant/:id',
+                    element: <ModifyC />,
+                },
+                {
+                    path: '/admin/contact',
+                    element: <FullContentContact />,
+                },
+                {
+                    path: '/admin/aide',
+                    element: <FullContentAideA />,
+                },
+                {
+                    path: '/admin/logout',
+                    element: <FullContentLogoutA />,
+                },
+            ],
+        },
+        {
+            path: '/consultant',
+            element: <MainPageConsultant />,
+            children: [
+                {
+                    path: '/consultant/dashboard',
+                    element: <FullContentDashboardC />,
                 },
                 {
                     path: '/consultant',
-                    element: <MainPageConsultant />,
-                    children: [
-                        {
-                            path: '/consultant/dashboard',
-                            element: <FullContentDashboardC />,
-                        },
-                        {
-                            path: '/consultant',
-                            element: <WelcomeC />
-                        },
-                        {
-                            path: '/consultant/timesheet',
-                            element: <FullContentTimesheet />,
-                        },
-                        {
-                            path: '/consultant/contact',
-                            element: <FullContentContact />,
-                        },
-                        {
-                            path: '/consultant/aide',
-                            element: <FullContentAideC />,
-                        },
-                        {
-                            path: '/consultant/logout',
-                            element: <FullContentLogoutC />
-                        },
-                    ],
+                    element: <WelcomeC />,
+                },
+                {
+                    path: '/consultant/timesheet',
+                    element: <FullContentTimesheet />,
+                },
+                {
+                    path: '/consultant/contact',
+                    element: <FullContentContact />,
+                },
+                {
+                    path: '/consultant/aide',
+                    element: <FullContentAideC />,
+                },
+                {
+                    path: '/consultant/logout',
+                    element: <FullContentLogoutC />,
+                },
+            ],
+        },
+        {
+            path: '/validateur',
+            element: <MainPageValidateur />,
+            children: [
+                {
+                    path: '/validateur/reports',
+                    element: <FullContentReport />,
                 },
                 {
                     path: '/validateur',
-                    element: <MainPageValidateur />,
-                    children: [
-                        {
-                            path: '/validateur/reports',
-                            element: <FullContentReport />,
-                        },
-                        {
-                            path: '/validateur',
-                            element: <WelcomeV />,
-                        },
-                        {
-                            path: '/validateur/dashboard',
-                            element: <FullContentDashboardV />,
-                        },
-                        {
-                            path: '/validateur/contact',
-                            element: <FullContentContact />,
-                        },
-                        {
-                            path: '/validateur/aide',
-                            element: <FullContentAideV />,
-                        },
-                        {
-                            path: '/validateur/logout',
-                            element: <FullContentLogoutV />
-                        },
-                    ],
+                    element: <WelcomeV />,
                 },
-            ]
+                {
+                    path: '/validateur/dashboard',
+                    element: <FullContentDashboardV />,
+                },
+                {
+                    path: '/validateur/contact',
+                    element: <FullContentContact />,
+                },
+                {
+                    path: '/validateur/aide',
+                    element: <FullContentAideV />,
+                },
+                {
+                    path: '/validateur/logout',
+                    element: <FullContentLogoutV />,
+                },
+            ],
         },
     ]);
 
@@ -161,6 +162,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 

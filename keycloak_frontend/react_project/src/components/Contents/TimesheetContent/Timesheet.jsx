@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import '../../../styles/content.css'; // Optional: Create a CSS file for styling
+import '../../../styles/content.css'; // Ensure this path is correct or create the file if it doesn't exist
 
 const Timesheet = () => {
     const [timesheets, setTimesheets] = useState([]);
+    const [filteredTimesheets, setFilteredTimesheets] = useState([]);
     const [currentTimesheet, setCurrentTimesheet] = useState(null);
     const [isCreating, setIsCreating] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [filterMonth, setFilterMonth] = useState('');
 
     useEffect(() => {
         fetchTimesheets();
@@ -16,7 +18,9 @@ const Timesheet = () => {
             const response = await fetch('http://localhost:8081/api/v1/timesheets');
             if (!response.ok) throw new Error('Network response was not ok.');
             const data = await response.json();
+            console.log('Fetched timesheets:', data); // Debug: Log fetched data
             setTimesheets(data);
+            setFilteredTimesheets(data);
         } catch (error) {
             console.error('Error fetching timesheets:', error);
         }
@@ -112,12 +116,44 @@ const Timesheet = () => {
         }
     };
 
+    const handleFilterChange = (event) => {
+        const month = event.target.value;
+        setFilterMonth(month);
+        filterTimesheetsByMonth(month);
+    };
+
+    const filterTimesheetsByMonth = (month) => {
+        if (month === '') {
+            setFilteredTimesheets(timesheets);
+        } else {
+            const filtered = timesheets.filter(timesheet => {
+                return timesheet.rows.some(row => {
+                    const date = new Date(row.date);
+                    const timesheetMonth = date.getMonth() + 1; // JavaScript months are 0-based
+                    return timesheetMonth === parseInt(month);
+                });
+            });
+            setFilteredTimesheets(filtered);
+        }
+    };
+
+    const getStatusStyle = (accepted) => {
+        console.log('Accepted status:', accepted); // Debug: Log accepted status
+        if (accepted === 1) {
+            return { backgroundColor: 'lightblue', color: 'white' };
+        }
+        if (accepted === 0) {
+            return { backgroundColor: 'darkorange', color: 'white' };
+        }
+        return {};
+    };
+
     const renderTimesheets = () => {
-        if (timesheets.length === 0) {
+        if (filteredTimesheets.length === 0) {
             return <p>No timesheets available</p>;
         }
-        return timesheets.map(timesheet => (
-            <div key={timesheet.id} className="timesheet">
+        return filteredTimesheets.map(timesheet => (
+            <div key={timesheet.id} className="timesheet" style={getStatusStyle(timesheet.accepted)}>
                 <h3>Timesheet ID: {timesheet.id}</h3>
                 <table>
                     <thead>
@@ -135,7 +171,7 @@ const Timesheet = () => {
                             <td>{row.matricule}</td>
                             <td>{row.cree_par}</td>
                             <td>{row.id_validateur}</td>
-                            <td>{row.date}</td>
+                            <td>{formatDate(row.date)}</td>
                             <td>{row.heures_travaillees}</td>
                         </tr>
                     ))}
@@ -150,12 +186,33 @@ const Timesheet = () => {
                         </>
                     )}
                 </div>
+                {timesheet.accepted !== null && (
+                    <p>{timesheet.accepted ? 'Accepted' : 'Refused'}</p>
+                )}
+                <div>
+                    _________________________________________________________________________________________________________________________
+                </div>
             </div>
         ));
     };
 
+    const formatDate = (date) => {
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        return new Date(date).toLocaleDateString('en-US', options).replace(/ /g, '_');
+    };
+
     return (
         <div>
+            <div className="filter-container">
+                <label htmlFor="filter-month">Filter by Month:</label>
+                <select id="filter-month" value={filterMonth} onChange={handleFilterChange}>
+                    <option value="">All</option>
+                    {Array.from({ length: 12 }, (_, i) => (
+                        <option key={i + 1} value={i + 1}>{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
+                    ))}
+                </select>
+            </div>
+            {renderTimesheets()}
             <button onClick={handleAddTimesheet} className="createbtn">Create Timesheet</button>
             {(isCreating || isEditing) && currentTimesheet && (
                 <div className="timesheet-form">
@@ -223,16 +280,23 @@ const Timesheet = () => {
                         </tbody>
                     </table>
                     <button onClick={isCreating ? handleSubmit : handleUpdate} className="submitbtn">
-                        {isCreating ? 'Ajouter' : 'Mettre à jour'}
+                        {isCreating ? 'Ajouter' : 'Confirm Update'}
                     </button>
                 </div>
             )}
-            {renderTimesheets()}
         </div>
     );
 };
 
 export default Timesheet;
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import "../Contents/Profile.jsx"
+
 import "../Contents/Content.jsx"
 import "../Sidebars/SidebarAdmin.jsx"
 import SidebarAdmin from "../Sidebars/SidebarAdmin.jsx";

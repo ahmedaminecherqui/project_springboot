@@ -400,3 +400,28 @@ th {
 .form-container input {
     margin-right: 10px;
 }
+.filter-container{
+    padding: 1rem;
+    width: 35%;
+    margin-top: 2rem;
+
+}
+.filter-container:hover {
+    background: #f4f4f4;
+    border-radius: 5px;
+}
+.filter-container select {
+    color: green;
+
+}
+.piechart--container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}

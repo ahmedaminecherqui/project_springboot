@@ -10,10 +10,10 @@ import {
 } from 'react-icons/bi';
 import "../../styles/sidebar.css";
 import "../Contents/Content.jsx"
-import "../Contents/Profile.jsx"
-import Content from "../Contents/Content.jsx";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import Profile from "../Contents/Profile.jsx";
+
+
+
+
 const SidebarAdmin = () => {
     return (
     <div className="menu">

@@ -13,6 +13,9 @@ public class Timesheet {
     @Column(name = "validated")
     private boolean validated;
 
+
+    private Boolean accepted;
+
     @OneToMany(mappedBy = "timesheet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TimesheetRow> rows;
 
@@ -39,6 +42,14 @@ public class Timesheet {
 
     public void setRows(List<TimesheetRow> rows) {
         this.rows = rows;
+    }
+
+    public Boolean getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        this.accepted = accepted;
     }
 }
 
