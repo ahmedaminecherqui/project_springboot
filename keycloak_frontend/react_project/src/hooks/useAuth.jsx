@@ -1,11 +1,6 @@
+// src/hooks/useAuth.js
 import { useState, useEffect, useRef } from 'react';
-import Keycloak from 'keycloak-js';
-
-const client = new Keycloak({
-    url: "http://localhost:8080/",
-    realm: "test",
-    clientId: "test-rest-api",
-});
+import keycloak from '../keycloak';  // Import the shared Keycloak instance
 
 const useAuth = () => {
     const isRun = useRef(false);
@@ -17,17 +12,17 @@ const useAuth = () => {
 
         isRun.current = true;
 
-        client.init({
+        keycloak.init({
             onLoad: "login-required",
             checkLoginIframe: false,
         }).then(authenticated => {
             setLogin(authenticated);
             if (authenticated) {
-                setToken(client.token);
-                client.onTokenExpired = () => {
-                    client.updateToken(30).then(refreshed => {
+                setToken(keycloak.token);
+                keycloak.onTokenExpired = () => {
+                    keycloak.updateToken(30).then(refreshed => {
                         if (refreshed) {
-                            setToken(client.token);
+                            setToken(keycloak.token);
                         } else {
                             setLogin(false);
                         }
@@ -42,10 +37,11 @@ const useAuth = () => {
         });
     }, []);
 
-    return [isLogin, token, client];
+    return [isLogin, token, keycloak];
 };
 
 export default useAuth;
+
 
 
 

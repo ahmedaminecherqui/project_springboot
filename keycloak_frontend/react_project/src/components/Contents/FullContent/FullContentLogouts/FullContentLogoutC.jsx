@@ -1,19 +1,27 @@
+// src/components/FullContentLogoutC.jsx
 import React from 'react';
-import {BiCheck, BiExit, BiPlusCircle, BiWindowClose} from "react-icons/bi";
+import { BiExit, BiWindowClose } from 'react-icons/bi';
+import { logout } from '../../../../authUtils.js'; // Import the logout function
 
 const FullContentLogoutC = () => {
-    return(<div className="logout">
-        <h2> Are you sure you want to logout ?</h2>
-        <div className="btn--layer">
-            <a href="" className="addbtn">
-                <BiExit className="icon"/>
-                Logout
-            </a>
-            <a href="/consultant" className="stopbtn">
-                <BiWindowClose className="icon"/>
-                Annuler
-            </a>
+    return (
+        <div className="logout">
+            <h2>Are you sure you want to logout?</h2>
+            <div className="btn--layer">
+                <button
+                    className="addbtn"
+                    onClick={() => logout()} // Call logout function on click
+                >
+                    <BiExit className="icon" />
+                    Logout
+                </button>
+                <a href="/consultant" className="stopbtn">
+                    <BiWindowClose className="icon" />
+                    Cancel
+                </a>
+            </div>
         </div>
-    </div>);
+    );
 };
+
 export default FullContentLogoutC;

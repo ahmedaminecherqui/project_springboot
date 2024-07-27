@@ -29,6 +29,7 @@ import WelcomeV from './components/Contents/FullContent/WelcomePage/WelcomeV.jsx
 import FullContentAideC from './components/Contents/FullContent/FullContentAide/FullContentAideC.jsx';
 import FullContentAideV from './components/Contents/FullContent/FullContentAide/FullContentAideV.jsx';
 
+
 const App = () => {
     const [validators, setValidators] = useState([]);
     const [isLogin, token, client] = useAuth();
@@ -42,10 +43,7 @@ const App = () => {
             path: '/',
             element: <Navigate to="/admin" replace />,
         },
-        {
-            path: '/login',
-            element: <div>Redirecting to login...</div>,
-        },
+
         {
             path: '/admin',
             element: <MainPageAdmin />,
