@@ -49,35 +49,37 @@ const AddC = () => {
     };
 
     return (
-        <div className="add-consultant">
+        <div className="add-v">
             <h2>Ajouter Consultant</h2>
-            <form>
-                <div>
-                    <label>Nom:</label>
+
+
+
                     <input
                         type="text"
                         value={nom}
+                        placeholder="Entrer nom consultant"
                         onChange={(e) => setNom(e.target.value)}
                     />
-                </div>
-                <div>
-                    <label>Tel:</label>
+
+
+
                     <input
                         type="text"
                         value={tel}
+                        placeholder="Entrer tel du consultant"
                         onChange={(e) => setTel(e.target.value)}
                     />
-                </div>
-                <div>
-                    <label>Durée Mission (en mois):</label>
+
+
+
                     <input
                         type="number"
                         value={duree}
+                        placeholder="Entrer duree de mission du consultant"
                         onChange={(e) => setDuree(e.target.value)}
                     />
-                </div>
-                <div>
-                    <label>Assigner Validateur:</label>
+
+
                     <select
                         value={selectedValidateur}
                         onChange={(e) => setSelectedValidateur(e.target.value)}
@@ -89,12 +91,12 @@ const AddC = () => {
                             </option>
                         ))}
                     </select>
+
+                <div className="btn--layer">
+                    <button type="button" onClick={handleAjouter} className="addbtn">Ajouter</button>
+                    <button type="button" onClick={handleAnnuler} className="stopbtn">Annuler</button>
                 </div>
-                <div>
-                    <button type="button" onClick={handleAjouter}>Ajouter</button>
-                    <button type="button" onClick={handleAnnuler}>Annuler</button>
-                </div>
-            </form>
+
         </div>
     );
 };

@@ -6,10 +6,10 @@ import {
     BiSolidReport,
     BiStats,
     BiHelpCircle,
-    BiExit,
+    BiExit, BiSolidGridAlt,
 } from 'react-icons/bi';
 import "../../styles/sidebar.css";
-import "../Contents/Content.jsx"
+
 
 
 
@@ -24,7 +24,7 @@ const SidebarAdmin = () => {
 
         <div className="menu--list">
             <a href="/admin/dashboard" className="item">
-                <BiHome className="icon"/>
+                <BiSolidGridAlt className="icon"/>
                 DASHBOARD
             </a>
             <a href="/admin/liste_validateur" className="item">

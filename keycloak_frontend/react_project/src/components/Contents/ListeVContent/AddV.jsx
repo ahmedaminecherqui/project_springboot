@@ -35,7 +35,7 @@ const AddV = () => {
     };
 
     return (
-        <div>
+        <div className="add-v">
             <h2>Add Validator</h2>
             <input
                 type="text"

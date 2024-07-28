@@ -6,7 +6,7 @@ import {
     BiSolidReport,
     BiStats,
     BiHelpCircle,
-    BiExit,
+    BiExit, BiSolidGridAlt,
 } from 'react-icons/bi';
 import "../../styles/sidebar.css";
 const SidebarValidateur = () => {
@@ -18,7 +18,7 @@ const SidebarValidateur = () => {
 
         <div className="menu--list">
             <a href="/validateur/dashboard" className="item">
-                <BiHome className="icon"/>
+                <BiSolidGridAlt className="icon"/>
                 DASHBOARD
             </a>
             <a href="/validateur/reports" className="item">

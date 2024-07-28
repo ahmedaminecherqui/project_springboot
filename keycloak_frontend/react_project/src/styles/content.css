@@ -145,6 +145,13 @@
     flex-direction: column;
     gap: 3em;
 }
+.modifyform input,select{
+    border: none;
+    outline: none;
+    padding: 0.4rem;
+    border-radius: 5px;
+    width: 50%;
+}
 .form{
     display: flex;
     flex-direction: column;
@@ -321,11 +328,12 @@ th {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    background: lightgray;
+    background: whitesmoke;
     border-radius: 10px;
     padding: 4rem;
-
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .add-v input,select{
     border: none;
     outline: none;
@@ -359,6 +367,7 @@ th {
     border-radius: 5px;
     margin-top: 4rem;
     padding: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -377,6 +386,7 @@ th {
 .table {
     width: 100%;
     border-collapse: collapse;
+
 }
 
 .table th, .table td {
@@ -386,6 +396,7 @@ th {
 
 .table th {
     background-color: #f4f4f4;
+
 }
 
 .form-container {
@@ -404,11 +415,14 @@ th {
     padding: 1rem;
     width: 35%;
     margin-top: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 
 }
 .filter-container:hover {
     background: #f4f4f4;
     border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .filter-container select {
     color: green;
@@ -424,4 +438,8 @@ th {
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
+}
+.static-table{
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

@@ -3,6 +3,11 @@
     flex-direction: column;
     gap: 3em;
     height: 94vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background: white;
+    align-items: center;
+    width: 22%;
 }
 .logo{
     text-align: center;
@@ -11,6 +16,10 @@
     align-items: center;
     display: flex;
     gap: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 94%;
 }
 .logo .icon{
     font-size: 3em;
@@ -27,14 +36,21 @@
     font-size: 1.1rem;
     text-decoration: none;
     font-weight: 600;
-    padding: 10px;
+
     border-radius: 10px;
     transition: 0.3s ease-in-out;
     color: forestgreen;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+
 }
 .menu--list .item:hover{
     background: forestgreen;
     color: whitesmoke;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
 }
 .menu--list .exit{
     display: flex;
@@ -43,12 +59,18 @@
     font-size: 1.1rem;
     text-decoration: none;
     font-weight: 600;
-    padding: 10px;
+
     border-radius: 10px;
     transition: 0.3s ease-in-out;
     color: darkred;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
 }
 .menu--list .exit:hover{
     background: darkred;
     color: whitesmoke;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
 }

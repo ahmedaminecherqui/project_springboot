@@ -81,7 +81,7 @@ const ModifyV = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-      <div>
+      <div className="modifyform">
         <h2>Modify Validator</h2>
         <div>
           <label>
@@ -117,9 +117,9 @@ const ModifyV = () => {
             </select>
           </label>
         </div>
-        <div>
-          <button onClick={handleUpdate}>Update</button>
-          <button onClick={handleCancel}>Cancel</button>
+        <div className="btn--layer">
+          <button onClick={handleUpdate} className="modifybtn">Update</button>
+          <button onClick={handleCancel} className="stopbtn">Cancel</button>
         </div>
       </div>
   );

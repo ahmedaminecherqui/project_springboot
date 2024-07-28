@@ -155,7 +155,7 @@ const Timesheet = () => {
         return filteredTimesheets.map(timesheet => (
             <div key={timesheet.id} className="timesheet" style={getStatusStyle(timesheet.accepted)}>
                 <h3>Timesheet ID: {timesheet.id}</h3>
-                <table>
+                <table className="static-table">
                     <thead>
                     <tr>
                         <th>Matricule (Id)</th>
