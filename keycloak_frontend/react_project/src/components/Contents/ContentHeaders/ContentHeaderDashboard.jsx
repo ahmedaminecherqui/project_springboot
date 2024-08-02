@@ -9,15 +9,7 @@ const ContentHeaderDashboard= () => {
         <h1 className="header--title">
             DASHBOARD
         </h1>
-        <div className="header--activity">
-            <div className="searchbox">
-               <input type="text" placeholder="Chercher"/>
-                <BiSearch className="icon" />
-            </div>
-            <div className="notify">
-                <BiNotification className="icon" />
-            </div>
-        </div>
+
     </div>);
 };
 

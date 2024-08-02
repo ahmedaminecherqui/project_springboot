@@ -39,19 +39,28 @@ public class ValidatorService {
         existingValidateur.setNom(validatorDetails.getNom());
         existingValidateur.setTel(validatorDetails.getTel());
 
-        // Clear the existing consultants
+        // Detach existing consultants
+        existingValidateur.getConsultants().forEach(consultant -> {
+            consultant.setValidateur(null);
+            consultantRepository.save(consultant);
+        });
         existingValidateur.getConsultants().clear();
 
         if (validatorDetails.getConsultants() != null && !validatorDetails.getConsultants().isEmpty()) {
             List<Consultant> consultants = validatorDetails.getConsultants().stream()
-                    .map(consultant -> consultantRepository.findById(Math.toIntExact(consultant.getId()))
-                            .orElseThrow(() -> new RuntimeException("Consultant not found with id: " + consultant.getId())))
+                    .map(consultant -> {
+                        Consultant existingConsultant = consultantRepository.findById(Math.toIntExact(consultant.getId()))
+                                .orElseThrow(() -> new RuntimeException("Consultant not found with id: " + consultant.getId()));
+                        existingConsultant.setValidateur(existingValidateur);
+                        return existingConsultant;
+                    })
                     .collect(Collectors.toList());
-            consultants.forEach(consultant -> consultant.setValidateur(existingValidateur)); // Set the validator reference
             existingValidateur.getConsultants().addAll(consultants);
         }
+
         validatorRepository.save(existingValidateur);
     }
+
 
     public Validateur getValidatorById(Long id) {
         return validatorRepository.findById(id).orElse(null);

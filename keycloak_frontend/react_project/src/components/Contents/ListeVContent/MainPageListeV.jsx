@@ -8,6 +8,7 @@ const MainPageListeV = () => {
     const [validators, setValidators] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchValidators = async () => {
@@ -26,6 +27,15 @@ const MainPageListeV = () => {
         fetchValidators();
     }, []);
 
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const filteredValidators = validators.filter((validator) =>
+        validator.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        validator.id.toString().includes(searchTerm)
+    );
+
     if (loading) {
         return <p>Loading validators...</p>;
     }
@@ -36,7 +46,17 @@ const MainPageListeV = () => {
 
     return (
         <div className="main-page-liste-v">
-            {validators.length > 0 ? (
+            <div className="searchbox">
+                <input
+                    type="text"
+                    placeholder="Search by name or ID"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="search-input"
+                />
+            </div>
+
+            {filteredValidators.length > 0 ? (
                 <table className="static-table">
                     <thead>
                     <tr>
@@ -47,7 +67,7 @@ const MainPageListeV = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {validators.map((validator) => (
+                    {filteredValidators.map((validator) => (
                         <tr key={validator.id}>
                             <td>
                                 <a href={`/admin/liste_validateur/modifier_validateur/${validator.id}`}>
@@ -100,9 +120,3 @@ MainPageListeV.propTypes = {
 };
 
 export default MainPageListeV;
-
-
-
-
-
-

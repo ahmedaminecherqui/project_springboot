@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Validateur implements Serializable {
     private String tel;
 
     @OneToMany(mappedBy = "validateur", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Consultant> consultants;
+    private List<Consultant> consultants= new ArrayList<>();
 
     // Getters and Setters
 

@@ -4,6 +4,7 @@ import { BiPlusCircle } from "react-icons/bi";
 
 const MainPageListeC = () => {
     const [consultants, setConsultants] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchConsultants = async () => {
@@ -18,9 +19,28 @@ const MainPageListeC = () => {
         fetchConsultants();
     }, []);
 
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const filteredConsultants = consultants.filter((consultant) =>
+        consultant.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        consultant.id.toString().includes(searchTerm)
+    );
+
     return (
-        <div className="addlist">
-            <table className="styled-table">
+        <div className="main-page-liste-v">
+            <div className="searchbox">
+                <input
+                    type="text"
+                    placeholder="Search by name or ID"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="search-input"
+                />
+            </div>
+
+            <table className="static-table">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -32,7 +52,7 @@ const MainPageListeC = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {consultants.map((consultant) => (
+                {filteredConsultants.map((consultant) => (
                     <tr key={consultant.id}>
                         <td>
                             <div className="elemnt">
@@ -48,14 +68,18 @@ const MainPageListeC = () => {
                 ))}
                 </tbody>
             </table>
-            <a href="/admin/liste_consultant/ajouter_consultant" className="item">
-                <BiPlusCircle className="icon" />
-                Ajouter
-            </a>
+
+                <a href="/admin/liste_consultant/ajouter_consultant" className="addbtn">
+                    <BiPlusCircle className="icon"/>
+                    Ajouter
+                </a>
+
+
         </div>
     );
 };
 
 export default MainPageListeC;
+
 
 

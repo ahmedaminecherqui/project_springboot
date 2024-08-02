@@ -9,11 +9,11 @@ import {
     BiExit, BiSolidGridAlt,
 } from 'react-icons/bi';
 import "../../styles/sidebar.css";
+import cih from "../../assets/cih.png";
 const SidebarValidateur = () => {
     return (<div className="menu">
         <div className="logo">
-            <BiTask className="icon" />
-            <h1> Task Master</h1>
+            <img alt="logocih" src={cih} className="png"/>
         </div>
 
         <div className="menu--list">

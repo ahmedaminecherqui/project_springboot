@@ -8,18 +8,21 @@
     background: white;
     align-items: center;
     width: 22%;
+    padding: 1em;
 }
 .logo{
     text-align: center;
-    padding: 10px;
+
     color: black;
     align-items: center;
     display: flex;
-    gap: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    width: 94%;
+    gap: 1rem;
+
+    width: 100%;
+    justify-content: center;
+}
+.png{
+    width: 60%;
 }
 .logo .icon{
     font-size: 3em;
@@ -39,7 +42,7 @@
 
     border-radius: 10px;
     transition: 0.3s ease-in-out;
-    color: forestgreen;
+    color: mediumblue;
     padding-left: 2rem;
     padding-right: 2rem;
     padding-bottom: 1rem;
@@ -47,7 +50,7 @@
 
 }
 .menu--list .item:hover{
-    background: forestgreen;
+    background: darkblue;
     color: whitesmoke;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transform: scale(1.1);

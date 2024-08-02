@@ -7,7 +7,7 @@
     justify-content: space-between;
 }
 .header--title{
-    background-color: forestgreen;
+    background-color: darkblue;
     color: white;
     border-radius: 8px;
     padding: .5rem;
@@ -18,27 +18,31 @@
     gap: 10px;
 }
 .searchbox{
-    background: honeydew;
+    background: white;
     border-radius: 8px;
     padding: .5rem;
     display: flex;
     align-items: center;
     transition: 0.3s ease-in-out;
+
 }
 .searchbox input{
     border: none;
     outline: none;
-    padding: 0.2rem;
+    padding: 0.5rem;
     background: transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    border-radius: 5px;
 }
 .searchbox:hover{
 
-    background: lightgreen;
-    color: white;
-    transform: scale(1.1);
+    background: white;
+    color: black;
+    transform: scale(1.05);
 }
 .searchbox input:hover{
-    color: white;
+    color: black;
 }
 .notify{
     background: honeydew;

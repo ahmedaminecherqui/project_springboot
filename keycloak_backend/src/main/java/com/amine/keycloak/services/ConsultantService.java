@@ -48,12 +48,13 @@ public class ConsultantService {
                 validateur.getConsultants().add(existingConsultant);
                 validatorRepository.save(validateur);
             }
-        }else {
+        } else {
             existingConsultant.setValidateur(null);
         }
 
         return consultantRepository.save(existingConsultant);
     }
+
     // Other methods...
     public List<Consultant> getAllConsultants() {
         return consultantRepository.findAll();
